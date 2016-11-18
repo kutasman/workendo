@@ -168,7 +168,7 @@ return [
          */
 
         Barryvdh\Debugbar\ServiceProvider::class,
-	    Zizaco\Entrust\EntrustServiceProvider::class,
+	    Laratrust\LaratrustServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -227,7 +227,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
-        'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
+        'Laratrust'   => Laratrust\LaratrustFacade::class,
     ],
 
 ];
