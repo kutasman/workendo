@@ -12,9 +12,14 @@
 */
 
 
+Route::group(['middleware' => 'web'], function (){
+	Route::get('/home', 'HomeController@index');
+	Route::get('/', 'HomeController@index');
 
-Route::get('/home', 'HomeController@index');
-Route::get('/', 'HomeController@index');
+	Route::get('settings', 'Settings\SettingsController@settings')->name('settings');
 
-Auth::routes();
+	Route::resource('places', 'Settings\PlacesController');
+	Auth::routes();
+});
+
 
