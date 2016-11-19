@@ -21,6 +21,15 @@ class CreatePlacesTable extends Migration
 	        $table->integer('song_percent', false, true)->nullable();
             $table->timestamps();
         });
+	    Schema::create('place_user', function ( Blueprint $table){
+		    $table->integer('place_id', false, true);
+		    $table->integer('user_id', false, true);
+
+		    $table->foreign('place_id')->references('id')->on('places');
+		    $table->foreign('user_id')->references('id')->on('users');
+	    });
+
+
 
     }
 
@@ -31,6 +40,13 @@ class CreatePlacesTable extends Migration
      */
     public function down()
     {
+	    Schema::disableForeignKeyConstraints();
+
+
         Schema::dropIfExists('places');
+        Schema::dropIfExists('place_user');
+
+	    Schema::enableForeignKeyConstraints();
+
     }
 }

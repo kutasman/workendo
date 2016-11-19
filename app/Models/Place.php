@@ -19,5 +19,10 @@ class Place extends Model
 	{
 		$this->attributes['salary'] = empty($value) ? '0' : $value;
 	}
+
+	public function users()
+	{
+		return $this->belongsToMany('App\Models\User');
+	}
 }
 

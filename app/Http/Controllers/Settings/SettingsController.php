@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Settings;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Place;
+use Auth;
 
 class SettingsController extends Controller
 {
@@ -18,7 +19,7 @@ class SettingsController extends Controller
 
 	public function settings()
 	{
-		$places = $this->places->paginate(10);
+		$places = Auth::user()->places()->paginate(10);
 		return view('settings.settings', compact('places'));
 	}
 }
