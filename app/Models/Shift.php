@@ -19,6 +19,11 @@ class Shift extends Model
 		return $this->belongsTo('App\Models\User');
 	}
 
+	public function places()
+	{
+		$this->belongsTo('App\Models\Place');
+	}
+
 	public function getCarbonDate()
 	{
 		return Carbon::createFromFormat($this->carbonDateFormat, $this->attributes['date']);

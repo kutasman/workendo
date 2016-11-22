@@ -43,7 +43,7 @@
         <div class="form-group">
             <label for="shift-tip" class="col-sm-2 control-label">Tip</label>
             <div class="col-sm-10">
-                <input type="number" name="songs" min="0" class="form-control" id="shift-tip" placeholder="Tip">
+                <input type="number" name="tip" min="0" class="form-control" id="shift-tip" placeholder="Tip">
             </div>
         </div>
 
