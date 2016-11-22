@@ -13,12 +13,15 @@
     <!-- Styles -->
     <link href="/css/app.css" rel="stylesheet">
 
+
     <!-- Scripts -->
     <script>
         window.Laravel = <?php echo json_encode([
             'csrfToken' => csrf_token(),
         ]); ?>
     </script>
+
+    @yield('header')
 </head>
 <body>
     <div id="app">
@@ -33,5 +36,6 @@
 
     <!-- Scripts -->
     <script src="/js/app.js"></script>
+    @yield('footer')
 </body>
 </html>

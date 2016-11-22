@@ -33,4 +33,9 @@ class User extends Authenticatable
 	{
 		return $this->belongsToMany('App\Models\Place');
 	}
+
+	public function shifts()
+	{
+		return $this->hasMany('App\Models\Shift');
+	}
 }

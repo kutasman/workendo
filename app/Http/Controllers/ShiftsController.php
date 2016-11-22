@@ -2,11 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Shift;
 use Illuminate\Http\Request;
+use Auth;
 
-class ShiftController extends Controller
+class ShiftsController extends Controller
 {
-    /**
+
+	public function __construct() {
+		//$this->middleware('auth');
+	}
+
+	/**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -23,7 +30,9 @@ class ShiftController extends Controller
      */
     public function create()
     {
-        //
+	    $places = Auth::user()->places;
+
+	    return view('shifts.create', compact('places'));
     }
 
     /**
@@ -34,7 +43,14 @@ class ShiftController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+        	'place_id' => 'required|numeric|min:0',
+        	'date' => 'required|date|date_format:Y-m-d',
+	        'songs' => 'numeric|min:0',
+        ]);
+
+	    $shift = Auth::user()->shifts()->create($request->all());
+	    return redirect()->route('home');
     }
 
     /**
@@ -79,6 +95,8 @@ class ShiftController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Shift::destroy($id);
+	    return redirect()->route('home');
+
     }
 }

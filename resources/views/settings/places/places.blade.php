@@ -40,7 +40,7 @@
                         </div>
                         <div class="form-group">
                             <label for="">Songs percent</label>
-                            <input type="number" max="10000" min="0" class="form-control" name="song_percent" value="{{ old('song_percent') }}">
+                            <input type="number" max="100" min="0" class="form-control" name="song_percent" value="{{ old('song_percent') }}">
                         </div>
                         <div class="pull-right">
                             <button type="submit" class="btn btn-primary">Submit</button>

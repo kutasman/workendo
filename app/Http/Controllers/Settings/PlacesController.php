@@ -48,11 +48,10 @@ class PlacesController extends Controller
 	    	'name' => 'required|max:255',
 		    'address' => 'max:255',
 		    'salary' => 'required|numeric|max:10000|min:0',
-		    'song_percent' => 'numeric|max:10000|min:0',
+		    'song_percent' => 'numeric|max:100|min:0',
 	    ]);
 
 	    Auth::user()->places()->create($request->all());
-	    //$this->places->create(request()->all());
         return redirect()->route('settings');
     }
 
