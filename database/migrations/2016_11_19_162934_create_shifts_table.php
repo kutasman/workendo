@@ -22,7 +22,7 @@ class CreateShiftsTable extends Migration
 	        $table->integer('user_id', false, true);
 	        $table->timestamps();
 
-	        $table->foreign('place_id')->references('id')->on('places');
+	        $table->foreign('place_id')->references('id')->on('places')->onDelete('cascade');
 	        $table->foreign('user_id')->references('id')->on('users');
         });
     }
