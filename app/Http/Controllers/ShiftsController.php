@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Shift;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Auth;
 
@@ -31,6 +32,9 @@ class ShiftsController extends Controller
     public function create()
     {
 	    $places = Auth::user()->places;
+	    $carbonToday = Carbon::today();
+	    $today = $carbonToday->format('Y-m-d');
+	    $yesterday = $carbonToday->subDay(1)->format('Y-m-d');
 
 	    return view('shifts.create', compact('places'));
     }
@@ -43,11 +47,7 @@ class ShiftsController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-        	'place_id' => 'required|numeric|min:0',
-        	'date' => 'required|date|date_format:Y-m-d',
-	        'songs' => 'numeric|min:0',
-        ]);
+        $this->validate($request, $this->gerRules());
 
 	    $shift = Auth::user()->shifts()->create($request->all());
 	    return redirect()->route('home');
@@ -72,7 +72,9 @@ class ShiftsController extends Controller
      */
     public function edit($id)
     {
-        //
+	    $shift = Shift::find($id);
+	    $places = Auth::user()->places;
+        return view('shifts.edit', compact('shift', 'places'));
     }
 
     /**
@@ -84,7 +86,16 @@ class ShiftsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, $this->gerRules());
+
+	    $shift = Shift::find($id);
+
+	    $shift->place_id = $request->get('place_id');
+	    $shift->date = $request->get('date');
+	    $shift->tip = $request->get('tip');
+	    $shift->save();
+
+	    return redirect()->route('home');
     }
 
     /**
@@ -98,5 +109,14 @@ class ShiftsController extends Controller
         Shift::destroy($id);
 	    return redirect()->route('home');
 
+    }
+
+    private function gerRules()
+    {
+	    return [
+		    'place_id' => 'required|numeric|min:0',
+		    'date' => 'required|date|date_format:Y-m-d',
+		    'tip' => 'numeric|min:0',
+	    ];
     }
 }

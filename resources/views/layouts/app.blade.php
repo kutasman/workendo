@@ -28,7 +28,7 @@
         @include('common.navmenu')
 
         <div class="container">
-            <div class="row col-md-offset-2 col-md-8">
+            <div class="col-md-offset-2 col-md-8">
                 @yield('content')
             </div>
         </div>
