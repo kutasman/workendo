@@ -24,6 +24,21 @@ class Shift extends Model
 		$this->belongsTo('App\Models\Place');
 	}
 
+	//Mutators
+
+	public function setSongsAttribute($value)
+	{
+		$this->attributes['songs'] = $value ? $value : 0;
+	}
+
+	public function setTipAttribute($value)
+	{
+		$this->attributes['tip'] = $value ? $value : 0;
+	}
+
+
+
+
 	public function getCarbonDate()
 	{
 		return Carbon::createFromFormat($this->carbonDateFormat, $this->attributes['date']);

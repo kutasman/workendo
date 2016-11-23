@@ -16,8 +16,8 @@ class CreateShiftsTable extends Migration
         Schema::create('shifts', function (Blueprint $table) {
             $table->increments('id');
 	        $table->date('date');
-	        $table->smallInteger('songs', false, true)->nullable();
-	        $table->integer('tip', false, true)->nullable();
+	        $table->smallInteger('songs', false, true)->default(0);
+	        $table->integer('tip', false, true)->default(0);
 	        $table->integer('place_id', false, true);
 	        $table->integer('user_id', false, true);
 	        $table->timestamps();
