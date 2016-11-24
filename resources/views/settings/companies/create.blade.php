@@ -1,10 +1,4 @@
-<div class="row">
-<div class="pull-right">
-    <button style="margin-bottom: 20px;" class="btn btn-default btn-xs" type="button" data-toggle="collapse" data-target="#add-company-container" aria-expanded="false" aria-controls="#add-company-container" >
-        <i class="fa fa-plus" ></i>
-    </button>
-</div>
-<div style="margin-bottom: 20px;" class="collapse{{ empty($errors->all()) ? '' : '.in' }} col-xs-12 col-sm-8 col-sm-offset-2" id="add-company-container">  {{--TODO: open place form only if error from companies.store--}}
+
     <form  action="{{ route('companies.store') }}" method="post" role="form">
         {{ csrf_field() }}
         <legend>Add new company</legend>
@@ -37,5 +31,3 @@
             <button type="submit" class="btn btn-primary">Add</button>
         </div>
     </form>
-</div>
-</div>

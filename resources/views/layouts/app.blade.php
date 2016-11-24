@@ -11,7 +11,8 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
-    <link href="/css/app.css" rel="stylesheet">
+    <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/pickadate.css') }}" rel="stylesheet">
 
 
     <!-- Scripts -->
@@ -36,6 +37,8 @@
 
     <!-- Scripts -->
     <script src="/js/app.js"></script>
+    <script src="{{ asset('js/pickadate.js') }}"></script>
+
     @yield('footer')
 </body>
 </html>

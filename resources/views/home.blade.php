@@ -6,17 +6,26 @@
     <div class="panel-heading">
         <div class="row">
             <div class="col-xs-4">
-                <b>Shifts</b>
+                <h3 class="panel-title"><b>Shifts</b></h3>
             </div>
+
             <div class="col-xs-8">
-                <a href="{{ route('shifts.create') }}" class="pull-right btn btn-link btn-xs"><i class="fa fa-plus"></i> </a>
+                <a class="btn btn-xs pull-right"  data-toggle="collapse" href="#add-new-shift" aria-expanded="false" aria-controls="collapseExample">
+                   <i class="fa fa-plus"></i>
+                </a>
             </div>
+
         </div>
     </div>
 
 
+    <div id="add-new-shift" class="collapse{{ $shiftsErrors ? '.in' : '' }}">
+        @include('shifts.create')
+    </div>
+
+
     <table class="table table-striped table-hover">
-        @if(!empty($shifts))
+        @if(!emptyArray($shifts))
     	<thead>
     		<tr>
     			<th>Day</th>
@@ -27,6 +36,7 @@
     		</tr>
     	</thead>
         @endif
+
     	<tbody>
         @forelse($shifts as $shift)
             <tr>
