@@ -16,20 +16,22 @@
 
 
     <table class="table table-striped table-hover">
+        @if(!empty($shifts))
     	<thead>
     		<tr>
     			<th>Day</th>
-    			<th>Place</th>
+    			<th>Company</th>
     			<th>Tip</th>
     			<th>Date</th>
                 <th>Action</th>
     		</tr>
     	</thead>
+        @endif
     	<tbody>
         @forelse($shifts as $shift)
             <tr>
                 <td width="10%">{{ $shift->getCarbonDate()->day }}</td>
-                <td width="30%">{{ $places[$shift->place_id] }}</td>
+                <td width="30%">{{ $companies[$shift->company_id]}}</td>
                 <td width="25%">{{ $shift->tip }}</td>
                 <td width="25%">{{ $shift->getCarbonDate()->format('Y-m-d') }}</td>
                 <td width="10%">
@@ -45,6 +47,7 @@
                 </td>
             </tr>
         @empty
+            <div class="text-center text-muted"><h3>They must hunger in winter that will not work in summer...</h3></div>
         @endforelse
 
     	</tbody>

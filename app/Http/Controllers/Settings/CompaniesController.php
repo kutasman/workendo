@@ -3,17 +3,17 @@
 namespace App\Http\Controllers\Settings;
 
 use App\Http\Controllers\Controller;
-use App\Models\Place;
+use App\Models\Company;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Auth;
 
-class PlacesController extends Controller
+class CompaniesController extends Controller
 {
-	protected $places;
+	protected $companies;
 
-	public function __construct(Place $places) {
-		$this->places = $places;
+	public function __construct(Company $company) {
+		$this->companies = $company;
 	}
 
 	/**
@@ -51,7 +51,7 @@ class PlacesController extends Controller
 		    'song_percent' => 'numeric|max:100|min:0',
 	    ]);
 
-	    Auth::user()->places()->create($request->all());
+	    Auth::user()->companies()->create($request->all());
         return redirect()->route('settings');
     }
 
@@ -97,8 +97,8 @@ class PlacesController extends Controller
      */
     public function destroy($id)
     {
-	    Auth::user()->places()->detach($id);
-        $this->places->destroy($id);
+	    Auth::user()->companies()->detach($id);
+        $this->companies->destroy($id);
 	    return redirect()->route('settings');
     }
 }

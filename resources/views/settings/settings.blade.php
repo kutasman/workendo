@@ -3,6 +3,6 @@
 @section('content')
     <h1>Settings<small></small></h1>
 
-    @include('settings.places.places')
+    @include('settings.companies.companies')
 
 @endsection

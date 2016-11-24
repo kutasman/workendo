@@ -11,7 +11,7 @@ class Shift extends Model
 	protected $carbonDateFormat = 'Y-m-d';
 
 	protected $fillable = [
-        'date', 'songs', 'place_id', 'user_id', 'tip',
+        'date', 'songs', 'company_id', 'user_id', 'tip',
     ];
 
 	public function users()
@@ -19,9 +19,9 @@ class Shift extends Model
 		return $this->belongsTo('App\Models\User');
 	}
 
-	public function places()
+	public function companies()
 	{
-		$this->belongsTo('App\Models\Place');
+		$this->belongsTo('App\Models\Company');
 	}
 
 	//Mutators

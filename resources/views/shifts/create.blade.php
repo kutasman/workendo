@@ -15,7 +15,7 @@
     </div>
 
 
-@forelse($errors->all() as $error)
+    @forelse($errors->all() as $error)
         <div class="alert alert-warning">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
             <strong>Sorry!</strong> {{ $error }}
@@ -23,11 +23,11 @@
     @empty
     @endforelse
     <div class="form-group">
-        <label for="places" class="col-sm-2 control-label">Places</label>
+        <label for="companies" class="col-sm-2 control-label">Companies</label>
         <div class="col-sm-10">
-            <select name="place_id" id="places" class="form-control">
-                @forelse($places as $place)
-                    <option value="{{ $place->id }}">{{ $place->name }}</option>
+            <select name="company_id" id="companies" class="form-control">
+                @forelse($companies as $company)
+                    <option value="{{ $company->id }}">{{ $company->name }}</option>
                 @empty
                 @endforelse
             </select>

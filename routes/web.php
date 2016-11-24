@@ -18,7 +18,7 @@ Route::group(['middleware' => 'web'], function (){
 
 	Route::get('settings', 'Settings\SettingsController@settings')->name('settings');
 
-	Route::resource('places', 'Settings\PlacesController');
+	Route::resource('companies', 'Settings\CompaniesController');
 	Route::resource('shifts', 'ShiftsController');
 	Auth::routes();
 });

@@ -20,13 +20,13 @@ class HomeComposer {
 	{
 		$shifts = Auth::user()->shifts()->whereMonth('date','=', date('m'))->orderBy('date', 'asc')->get();
 
-		$places = [];
-		foreach ( Auth::user()->places->toArray() as $place )
+		$companies = [];
+		foreach ( Auth::user()->companies->toArray() as $company )
 		{
-			$places[$place['id']] = $place['name'];
+			$companies[$company['id']] = $company['name'];
 		}
 
-		$view->with(compact('shifts', 'places'));
+		$view->with(compact('shifts', 'companies'));
 	}
 
 }

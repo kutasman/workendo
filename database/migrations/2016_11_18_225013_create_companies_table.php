@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePlacesTable extends Migration
+class CreateCompaniesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreatePlacesTable extends Migration
      */
     public function up()
     {
-        Schema::create('places', function (Blueprint $table) {
+        Schema::create('companies', function (Blueprint $table) {
             $table->increments('id');
 	        $table->string('name');
 	        $table->string('address')->nullable();
@@ -21,11 +21,11 @@ class CreatePlacesTable extends Migration
 	        $table->integer('song_percent', false, true)->nullable();
             $table->timestamps();
         });
-	    Schema::create('place_user', function ( Blueprint $table){
-		    $table->integer('place_id', false, true);
+	    Schema::create('company_user', function ( Blueprint $table){
+		    $table->integer('company_id', false, true);
 		    $table->integer('user_id', false, true);
 
-		    $table->foreign('place_id')->references('id')->on('places');
+		    $table->foreign('company_id')->references('id')->on('companies');
 		    $table->foreign('user_id')->references('id')->on('users');
 	    });
 
@@ -43,8 +43,8 @@ class CreatePlacesTable extends Migration
 	    Schema::disableForeignKeyConstraints();
 
 
-        Schema::dropIfExists('places');
-        Schema::dropIfExists('place_user');
+        Schema::dropIfExists('companies');
+        Schema::dropIfExists('company_user');
 
 	    Schema::enableForeignKeyConstraints();
 

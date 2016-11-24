@@ -4,22 +4,22 @@ namespace App\Http\Controllers\Settings;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Place;
+use App\Models\Company;
 use Auth;
 
 class SettingsController extends Controller
 {
 	//Places model
-	protected $places;
+	protected $companies;
 
-	public function __construct(Place $places) {
+	public function __construct(Company $company) {
 		$this->middleware('auth');
-		$this->places = $places;
+		$this->companies = $company;
 	}
 
 	public function settings()
 	{
-		$places = Auth::user()->places()->paginate(10);
-		return view('settings.settings', compact('places'));
+		$companies = Auth::user()->companies()->paginate(10);
+		return view('settings.settings', compact('companies'));
 	}
 }

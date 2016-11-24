@@ -29,9 +29,9 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-	public function places()
+	public function companies()
 	{
-		return $this->belongsToMany('App\Models\Place');
+		return $this->belongsToMany('App\Models\Company');
 	}
 
 	public function shifts()

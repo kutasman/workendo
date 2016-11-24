@@ -18,11 +18,11 @@ class CreateShiftsTable extends Migration
 	        $table->date('date');
 	        $table->smallInteger('songs', false, true)->default(0);
 	        $table->integer('tip', false, true)->default(0);
-	        $table->integer('place_id', false, true);
+	        $table->integer('company_id', false, true);
 	        $table->integer('user_id', false, true);
 	        $table->timestamps();
 
-	        $table->foreign('place_id')->references('id')->on('places')->onDelete('cascade');
+	        $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
 	        $table->foreign('user_id')->references('id')->on('users');
         });
     }

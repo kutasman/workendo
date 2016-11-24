@@ -31,12 +31,12 @@ class ShiftsController extends Controller
      */
     public function create()
     {
-	    $places = Auth::user()->places;
+	    $companies = Auth::user()->companies;
 	    $carbonToday = Carbon::today();
 	    $today = $carbonToday->format('Y-m-d');
 	    $yesterday = $carbonToday->subDay(1)->format('Y-m-d');
 
-	    return view('shifts.create', compact('places'));
+	    return view('shifts.create', compact('companies'));
     }
 
     /**
@@ -73,8 +73,8 @@ class ShiftsController extends Controller
     public function edit($id)
     {
 	    $shift = Shift::find($id);
-	    $places = Auth::user()->places;
-        return view('shifts.edit', compact('shift', 'places'));
+	    $companies = Auth::user()->companies;
+        return view('shifts.edit', compact('shift', 'companies'));
     }
 
     /**
@@ -90,7 +90,7 @@ class ShiftsController extends Controller
 
 	    $shift = Shift::find($id);
 
-	    $shift->place_id = $request->get('place_id');
+	    $shift->company_id = $request->get('company_id');
 	    $shift->date = $request->get('date');
 	    $shift->tip = $request->get('tip');
 	    $shift->save();
@@ -114,7 +114,7 @@ class ShiftsController extends Controller
     private function gerRules()
     {
 	    return [
-		    'place_id' => 'required|numeric|min:0',
+		    'company_id' => 'required|numeric|min:0',
 		    'date' => 'required|date|date_format:Y-m-d',
 		    'tip' => 'numeric|min:0',
 	    ];

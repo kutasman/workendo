@@ -21,11 +21,11 @@
         @empty
         @endforelse
         <div class="form-group">
-            <label for="places" class="col-sm-2 control-label">Places</label>
+            <label for="places" class="col-sm-2 control-label">Companies</label>
             <div class="col-sm-10">
-                <select name="place_id" id="places" class="form-control">
-                    @forelse($places as $place)
-                        <option value="{{ $place->id }}" {{ $place->id == $shift->place_id ? 'selected' : '' }}>{{ $place->name }}</option>
+                <select name="company_id" id="companies" class="form-control">
+                    @forelse($companies as $company)
+                        <option value="{{ $company->id }}" {{ $company->id == $shift->company_id ? 'selected' : '' }}>{{ $company->name }}</option>
                     @empty
                     @endforelse
                 </select>
