@@ -3,22 +3,22 @@
 return [
     'role_structure' => [
         'superadmin' => [
-            'users' => 'c,r,u,d',
+            'user' => 'c,r,u,d',
             'acl' => 'c,r,u,d',
             'profile' => 'r,u',
-	        'places' => 'c,r,u,d',
-	        'shifts' => 'c,r,u,d'
+	        'company' => 'c,r,u,d',
+	        'shift' => 'c,r,u,d'
         ],
         'admin' => [
-            'users' => 'c,r,u,d',
+            'user' => 'c,r,u,d',
             'profile' => 'r,u',
-	        'places' => 'c,r,u,d',
-	        'shifts' => 'c,r,u,d'
+	        'company' => 'c,r,u,d',
+	        'shift' => 'c,r,u,d'
         ],
         'user' => [
             'profile' => 'r,u',
-	        'places' => 'r',
-	        'shifts' => 'c,r,u,d'
+	        'company' => 'r',
+	        'shift' => 'c,r,u,d'
         ],
     ],
     'permissions_map' => [
