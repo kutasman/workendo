@@ -7,7 +7,7 @@
                 <legend>Create shift <small class="text-muted">Today: {{ $today }}</small></legend>
             </div>
 
-            @if(emptyArray($companies))
+            @if(empty($companies))
             <div class="alert alert-info">
             	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
             	 Please, <a class="alert-link" href="{{ route('settings') }}">add companies</a> first!
