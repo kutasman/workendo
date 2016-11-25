@@ -26,10 +26,6 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-		User::created(function ($user){
-			$user_role = Role::where('name','=' ,'user')->first();
-			$user->attachRole($user_role);
-		});
         //
     }
 }
