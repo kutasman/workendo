@@ -18,6 +18,7 @@ class CreateCompaniesTable extends Migration
 	        $table->string('name');
 	        $table->string('address')->nullable();
 	        $table->integer('salary', false, true);
+	        $table->string('salary_type', 25);
 	        $table->integer('song_percent', false, true)->nullable();
             $table->timestamps();
         });
