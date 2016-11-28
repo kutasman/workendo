@@ -25,7 +25,7 @@
 
 
     <table class="table table-striped table-hover">
-        @if(!emptyArray($shifts))
+        @if(!$shifts->isEmpty())
     	<thead>
     		<tr>
     			<th>Day</th>
