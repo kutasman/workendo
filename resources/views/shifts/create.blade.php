@@ -23,7 +23,7 @@
             @endforelse
 
             <div class="form-group">
-                <label for="companies" class="col-sm-2 control-label">Companies</label>
+                <label for="companies" class="col-sm-2 control-label">Company</label>
                 <div class="col-sm-10">
                     <select name="company_id" id="companies" class="form-control">
 

@@ -1,12 +1,14 @@
 @extends('layouts.app')
 
+@section('breadcrumbs', Breadcrumbs::render('companies.edit', $company->id))
+
 @section('content')
     <div class="panel panel-default">
     	<div class="panel-body">
             <form  action="{{ route('companies.update', ['id '=> $company->id]) }}" method="post" role="form">
                 {{ csrf_field() }}
                 {{ method_field('PUT') }}
-                <legend>Update company</legend>
+                <legend>Edit company</legend>
 
                 @forelse( $errors->all() as $error )
                     <div class="alert alert-warning">

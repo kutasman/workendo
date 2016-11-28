@@ -4,6 +4,8 @@
     <link href="{{ asset('css/pickadate.css') }}" rel="stylesheet">
 @endsection
 
+@section('breadcrumbs', Breadcrumbs::render('shifts.edit', $shift->id))
+
 @section('content')
     <div class="panel panel-default">
     	<div class="panel-body">
@@ -11,7 +13,7 @@
                 {{ csrf_field() }}
                 {{ method_field('PUT') }}
 
-                <legend>Update shift</legend>
+                <legend>Edit shift</legend>
 
                 @forelse($errors->all() as $error)
                     <div class="alert alert-warning">

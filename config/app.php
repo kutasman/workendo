@@ -169,6 +169,7 @@ return [
 
         Barryvdh\Debugbar\ServiceProvider::class,
 	    Laratrust\LaratrustServiceProvider::class,
+	    DaveJamesMiller\Breadcrumbs\ServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -229,6 +230,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'Laratrust'   => Laratrust\LaratrustFacade::class,
+        'Breadcrumbs' => DaveJamesMiller\Breadcrumbs\Facade::class,
     ],
 
 ];

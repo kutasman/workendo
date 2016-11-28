@@ -27,6 +27,9 @@
 <body>
     <div id="app">
         @include('common.navmenu')
+        <div class="container">
+            @yield('breadcrumbs')
+        </div>
 
         <div class="container">
             <div class="col-md-offset-2 col-md-8">
