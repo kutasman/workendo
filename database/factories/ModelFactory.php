@@ -24,10 +24,11 @@ $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Models\Shift::class, function (Faker\Generator $faker){
 	static $date;
+
 	$date = $date ? $date->addDay() : \Carbon\Carbon::createFromDate(2016, 11, 01);
 	return [
 		'date' => $date->format('Y-m-d'),
-		'company_id' => random_int(1,2),
+		'company_id' => 1,
 		'user_id' => 1,
 		'tip' => random_int(100,1000),
 	];

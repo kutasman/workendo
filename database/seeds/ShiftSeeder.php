@@ -13,6 +13,12 @@ class ShiftSeeder extends Seeder
     {
 
 	    $this->truncateShiftsTabel();
+	    \App\Models\User::where(['id' => 1])->first()->companies()->create([
+	    	'name' => 'Test',
+		    'address' => 'Address',
+		    'salary' => '500',
+		    'salary_type' => 'shift'
+	    ]);
         $shifts = factory(App\Models\Shift::class, 100)->create();
     }
 
