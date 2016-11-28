@@ -6,11 +6,19 @@ use App\Http\Controllers\Controller;
 use App\Models\Company;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Laratrust;
 use Auth;
 
 class CompaniesController extends Controller
 {
 	protected $companies;
+
+	protected $validateRules = [
+		'name' => 'required|max:255',
+		'address' => 'max:255',
+		'salary' => 'required|numeric|max:10000|min:0',
+		'song_percent' => 'numeric|max:100|min:0',
+	];
 
 	public function __construct(Company $company) {
 		$this->companies = $company;
@@ -44,14 +52,13 @@ class CompaniesController extends Controller
      */
     public function store(Request $request)
     {
-	    $this->validate($request, [
-	    	'name' => 'required|max:255',
-		    'address' => 'max:255',
-		    'salary' => 'required|numeric|max:10000|min:0',
-		    'song_percent' => 'numeric|max:100|min:0',
-	    ]);
+    	if( Laratrust::can('company-create')){
 
-	    Auth::user()->companies()->create($request->all());
+		    $this->validate($request, $this->getValidateRules());
+
+		    Auth::user()->companies()->create($request->all());
+
+	    }
         return redirect()->route('settings');
     }
 
@@ -74,7 +81,13 @@ class CompaniesController extends Controller
      */
     public function edit($id)
     {
-        //
+    	if (Laratrust::can('company-read')){
+		    $company = Company::find($id);
+		    return view('settings.companies.edit', compact('company'));
+	    } else {
+    		return redirect()->back();
+	    }
+
     }
 
     /**
@@ -86,7 +99,15 @@ class CompaniesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if(Laratrust::can('company-update')){
+	        $this->validate($request, $this->getValidateRules());
+
+	        $company = Company::find($id);
+	        $company->fill($request->all());
+	        $company->save();
+        }
+
+        return redirect()->route('settings');
     }
 
     /**
@@ -97,8 +118,15 @@ class CompaniesController extends Controller
      */
     public function destroy($id)
     {
-	    Auth::user()->companies()->detach($id);
-        $this->companies->destroy($id);
+    	if (Laratrust::can('company-delete')){
+		    Auth::user()->companies()->detach($id);
+		    $this->companies->destroy($id);
+	    }
 	    return redirect()->route('settings');
+    }
+
+    private function getValidateRules()
+    {
+    	return $this->validateRules;
     }
 }

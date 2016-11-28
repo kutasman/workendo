@@ -26,8 +26,9 @@ class HomeComposer {
 		if ( $errors ){
 			$shiftsErrors = $errors->has('tip') || $errors->has('company_id') || $errors->has('date') || $errors->has('songs');
 		}
+
 		//Fetch shifts
-		$shifts = Auth::user()->shifts()->whereMonth('date','=', Carbon::today()->toDateString())->orderBy('date', 'asc')->get();
+		$shifts = Auth::user()->shifts()->whereMonth('date','=', date('m'))->orderBy('date', 'asc')->get();
 
 		//Companies
 		$companies = [];

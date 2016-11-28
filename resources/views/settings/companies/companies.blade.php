@@ -21,13 +21,25 @@
         @forelse( $companies as $company)
             <ul class="list-group">
                 <li class="list-group-item">
-                    <i class="pull-right btn btn-link" onclick="$('#destroy-company-{{ $company->id }}').submit();return false;"><i class="text-danger fa fa-times"></i> </i>
-                    <h4><b>{{ $company->name }}</b></h4>
-                    <small>{{ $company->address }} {{ $company->salary }} {{ $company->song_percent }}</small>
-                    <form id="destroy-company-{{ $company->id }}" action="{{ route('companies.destroy', ['id' => $company->id]) }}" method="post" class="hide">
-                        {{ method_field('DELETE') }}
-                        {{ csrf_field() }}
-                    </form>
+                    <div class="row">
+                    <div class="col-xs-8">
+                        <h4><b>{{ $company->name }}</b></h4>
+                        <small>{{ $company->address }} {{ $company->salary }} {{ $company->song_percent }}</small>
+                    </div>
+                    <div class="col-xs-4">
+                        <div class="pull-right">
+                            <a class="btn btn-xs" href="{{ route('companies.edit', ['id' => $company->id]) }}"><i class="fa fa-edit"></i> </a>
+                            <span class="btn btn-xs" onclick="$('#destroy-company-{{ $company->id }}').submit();return false;"><i class="text-danger fa fa-times"></i> </span>
+                        </div>
+                        <form id="destroy-company-{{ $company->id }}" action="{{ route('companies.destroy', ['id' => $company->id]) }}" method="post" class="hide">
+                            {{ method_field('DELETE') }}
+                            {{ csrf_field() }}
+                        </form>
+
+                    </div>
+                    </div>
+
+
                 </li>
             </ul>
         @empty

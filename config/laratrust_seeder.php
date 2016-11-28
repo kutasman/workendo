@@ -17,8 +17,8 @@ return [
         ],
         'user' => [
             'profile' => 'r,u',
-	        'company' => 'r',
-	        'shift' => 'c,r,u,d'
+            'company' => 'c,r,u,d',
+            'shift' => 'c,r,u,d'
         ],
     ],
     'permissions_map' => [

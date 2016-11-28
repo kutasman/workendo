@@ -10,6 +10,12 @@ use Auth;
 class ShiftsController extends Controller
 {
 
+	protected $validateRules = [
+		'company_id' => 'required|numeric|min:0',
+		'date' => 'required|date|date_format:Y-m-d',
+		'tip' => 'numeric|min:0',
+	];
+
 	public function __construct() {
 		//$this->middleware('auth');
 	}
@@ -47,9 +53,9 @@ class ShiftsController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, $this->gerRules());
+        $this->validate($request, $this->getRules());
 
-	    $shift = Auth::user()->shifts()->create($request->all());
+	    Auth::user()->shifts()->create($request->all());
 	    return redirect()->route('home');
     }
 
@@ -86,7 +92,7 @@ class ShiftsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, $this->gerRules());
+        $this->validate($request, $this->getRules());
 
 	    $shift = Shift::find($id);
 
@@ -111,12 +117,8 @@ class ShiftsController extends Controller
 
     }
 
-    private function gerRules()
+    private function getRules()
     {
-	    return [
-		    'company_id' => 'required|numeric|min:0',
-		    'date' => 'required|date|date_format:Y-m-d',
-		    'tip' => 'numeric|min:0',
-	    ];
+	    return $this->validateRules;
     }
 }
