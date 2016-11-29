@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Settings;
 
 use App\Http\Controllers\Controller;
 use App\Models\Company;
+use App\Models\SalaryType;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Laratrust;
@@ -18,6 +19,7 @@ class CompaniesController extends Controller
 		'address' => 'max:255',
 		'salary' => 'required|numeric|max:10000|min:0',
 		'song_percent' => 'numeric|max:100|min:0',
+		'salary_type_id' => 'numeric|required'
 	];
 
 	public function __construct(Company $company) {
@@ -83,7 +85,8 @@ class CompaniesController extends Controller
     {
     	if (Laratrust::can('company-read')){
 		    $company = Company::find($id);
-		    return view('settings.companies.edit', compact('company'));
+		    $salaryTypes = SalaryType::all();
+		    return view('settings.companies.edit', compact('company', 'salaryTypes'));
 	    } else {
     		return redirect()->back();
 	    }

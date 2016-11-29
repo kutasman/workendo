@@ -31,6 +31,14 @@
                     <input type="number" max="10000" min="0" class="form-control" name="salary" value="{{ $company->salary }}" required>
                 </div>
                 <div class="form-group">
+                    <label>Salary type</label>
+                    <select name="salary_type_id" class="form-control">
+                        @foreach($salaryTypes as $salaryType)
+                            <option value="{{ $salaryType->id }}" {{ ( $salaryType->id == $company->salary_type_id ) ? 'selected' : '' }}>{{ $salaryType->type }} ( {{ $salaryType->description }} )</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
                     <label for="">Songs percent</label>
                     <input type="number" max="100" min="0" class="form-control" name="song_percent" value="{{ $company->song_percent }}">
                 </div>

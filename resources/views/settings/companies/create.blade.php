@@ -24,6 +24,15 @@
             <input type="number" max="10000" min="0" class="form-control" name="salary" value="{{ old('salary') }}" required>
         </div>
         <div class="form-group">
+            <label for="salary-type-id" >Salary type</label>
+            <select id="salary-type-id" class="form-control" name="salary_type_id">
+                @forelse($salaryTypes as $salaryType)
+                    <option value="{{ $salaryType->id }}">{{ $salaryType->type }} ( {{$salaryType->description }} )</option>
+                @empty
+                @endforelse
+            </select>
+        </div>
+        <div class="form-group">
             <label for="">Songs percent</label>
             <input type="number" max="100" min="0" class="form-control" name="song_percent" value="{{ old('song_percent') }}">
         </div>

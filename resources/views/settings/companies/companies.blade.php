@@ -24,7 +24,7 @@
                     <div class="row">
                     <div class="col-xs-8">
                         <h4><b>{{ $company->name }}</b></h4>
-                        <small>{{ $company->address }} {{ $company->salary }} {{ $company->song_percent }}</small>
+                        <small>{{ $company->address }} {{ $company->salary }} {{ $company->song_percent }} {{ $salaryTypes[$company->salary_type_id]['type'] }}</small>
                     </div>
                     <div class="col-xs-4">
                         <div class="pull-right">
@@ -38,8 +38,6 @@
 
                     </div>
                     </div>
-
-
                 </li>
             </ul>
         @empty

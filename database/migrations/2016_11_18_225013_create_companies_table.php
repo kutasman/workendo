@@ -13,12 +13,17 @@ class CreateCompaniesTable extends Migration
      */
     public function up()
     {
+    	Schema::create('salary_types', function (Blueprint $table){
+    		$table->increments('id');
+		    $table->string('type', 255);
+		    $table->string('description', 255);
+	    });
         Schema::create('companies', function (Blueprint $table) {
             $table->increments('id');
 	        $table->string('name');
 	        $table->string('address')->nullable();
 	        $table->integer('salary', false, true);
-	        $table->string('salary_type', 25);
+	        $table->integer('salary_type_id', false, true);
 	        $table->integer('song_percent', false, true)->nullable();
             $table->timestamps();
         });
@@ -43,7 +48,7 @@ class CreateCompaniesTable extends Migration
     {
 	    Schema::disableForeignKeyConstraints();
 
-
+		Schema::dropIfExists('salary_types');
         Schema::dropIfExists('companies');
         Schema::dropIfExists('company_user');
 
