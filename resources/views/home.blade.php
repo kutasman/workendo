@@ -2,6 +2,22 @@
 
 @section('content')
 
+@if(!$shifts->isEmpty())
+
+    <div class="well well-sm">
+        <span class="text-info">{{ \Carbon\Carbon::today()->format('F Y') }}</span>
+        <div class="row">
+            <div class="col-xs-12 col-sm-5">
+                <h1><strong class="text-success">Total: {{ $total }}</strong></h1>
+            </div>
+            <div class="col-xs-12 col-sm-7">
+                <h1><small>Tip: {{ $tip }}, Salary: {{ $salary }}, Shifts: {{ $shifts->count() }}</small></h1>
+            </div>
+        </div>
+    </div>
+
+@endif
+
 <div class="panel panel-default">
     <div class="panel-heading">
         <div class="row">
@@ -41,7 +57,7 @@
         @forelse($shifts as $shift)
             <tr>
                 <td width="10%">{{ $shift->getCarbonDate()->day }}</td>
-                <td width="30%">{{ $companies[$shift->company_id]}}</td>
+                <td width="30%">{{ $companies->where('id',$shift->company_id)->first()->name}}</td>
                 <td width="25%">{{ $shift->tip }}</td>
                 <td width="25%">{{ $shift->getCarbonDate()->format('Y-m-d') }}</td>
                 <td width="10%">

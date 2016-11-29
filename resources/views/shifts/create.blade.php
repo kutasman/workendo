@@ -7,7 +7,7 @@
                 <legend>Create shift <small class="text-muted">Today: {{ $today }}</small></legend>
             </div>
 
-            @if(empty($companies))
+            @if($companies->isEmpty())
             <div class="alert alert-info">
             	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
             	 Please, <a class="alert-link" href="{{ route('settings') }}">add companies</a> first!
@@ -27,8 +27,8 @@
                 <div class="col-sm-10">
                     <select name="company_id" id="companies" class="form-control">
 
-                       @forelse($companies as $id => $name)
-                            <option value="{{ $id }}">{{ $name }}</option>
+                       @forelse($companies as $company)
+                            <option value="{{ $company->id }}">{{ $company->name }}</option>
                         @empty
                            <option>no companies</option>
                         @endforelse
