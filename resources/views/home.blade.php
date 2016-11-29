@@ -40,11 +40,12 @@
     </div>
 
 
-    <table class="table table-striped table-hover">
+    <table class="table table-striped table-hover table-bordered">
         @if(!$shifts->isEmpty())
     	<thead>
     		<tr>
-    			<th>Day</th>
+    			<th>#</th>
+                <th>Day of Week</th>
     			<th>Company</th>
     			<th>Tip</th>
     			<th>Date</th>
@@ -56,8 +57,9 @@
     	<tbody>
         @forelse($shifts as $shift)
             <tr>
-                <td width="10%">{{ $shift->getCarbonDate()->day }}</td>
-                <td width="30%">{{ $companies->where('id',$shift->company_id)->first()->name}}</td>
+                <td width="5%">{{ $shift->getCarbonDate()->day }}</td>
+                <td width="15%">{{ $shift->getCarbonDate()->format('D') }}</td>
+                <td width="20%">{{ $companies->where('id',$shift->company_id)->first()->name}}</td>
                 <td width="25%">{{ $shift->tip }}</td>
                 <td width="25%">{{ $shift->getCarbonDate()->format('Y-m-d') }}</td>
                 <td width="10%">
