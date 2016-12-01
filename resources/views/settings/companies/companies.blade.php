@@ -22,11 +22,25 @@
         @forelse( $companies as $company)
 
             <div class="list-group-item">
-                <h3 class="list-group-item-heading">{{ $company->name }} <small>{{ $company->address }}</small></h3>
+                <h3 class="list-group-item-heading">{{ $company->name }} <small>{{ $company->address }}</small>
+                    <span class="text-danger btn btn-sm pull-right" onclick="$('#destroy-company-{{ $company->id }}').submit();return false;">Delete company</span>
+                    {{ BootForm::open(['id'=>'destroy-company-'. $company->id,'url' => route('companies.destroy', ['id'=> $company->id]), 'method' => 'delete']) }}
+                    {{ BootForm::close() }}
+                </h3>
+                <ul>
                 @forelse($company->incomes as $income)
-                    {{ $income_types->keyBy('id')[$income->income_type_id]['income_type_name'] }} : {{ $income->rules }}
+                    <li>
+                        {{ $income_types->keyBy('id')[$income->income_type_id]['income_type_name'] }} : {{ $income->rules }}
+                        <i class="fa fa-times btn btn-xs text-danger" onclick="$('#destroy-income-{{$income->id}}').submit();return false;"></i>
+                    </li>
+                    <form action="{{ route('companies.incomes.destroy', ['id'=> $income->id, 'company_id' => $company->id]) }}" method="post" id="destroy-income-{{$income->id}}" role="form">
+                        {{ csrf_field() }}
+                        {{ method_field('delete') }}
+                    </form>
                 @empty
                 @endforelse
+                </ul>
+
                 <p class="list-group-item-text">
                     <a href="{{ route('companies.incomes.create', ['company_id' => $company->id]) }}">Add income</a>
                 </p>

@@ -103,9 +103,13 @@ class IncomesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, $company_id)
     {
-        //
+
+        Company::find($company_id)->incomes()->delete($id);
+
+
+        return redirect()->route('settings');
     }
 
     private function getRules()

@@ -33,7 +33,7 @@ class CreateCompaniesTable extends Migration
 		    $table->integer('company_id', false, true);
 		    $table->json('rules');
 
-		    $table->foreign('company_id')->references('id')->on('companies');
+		    $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
 	    });
 	    Schema::create('income_types', function ( Blueprint $table ){
 		    $table->increments('id');

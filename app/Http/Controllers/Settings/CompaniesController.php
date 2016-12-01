@@ -117,8 +117,9 @@ class CompaniesController extends Controller
     public function destroy($id)
     {
     	if (Laratrust::can('company-delete')){
+    		$this->companies->find($id)->incomes()->delete();
 		    Auth::user()->companies()->detach($id);
-		    $this->companies->destroy($id);
+		    Auth::user()->companies()->delete($id);
 	    }
 	    return redirect()->route('settings');
     }

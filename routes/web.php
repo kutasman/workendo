@@ -18,7 +18,7 @@ Route::group(['middleware' => 'web'], function (){
 
 	Route::group(['middleware' => 'auth'], function (){
 		Route::get('settings', 'Settings\SettingsController@settings')->name('settings');
-		Route::resource('companies', 'Settings\CompaniesController');
+		Route::resource('companies', 'Settings\CompaniesController', ['except'=>['index']]);
 		Route::resource('shifts', 'ShiftsController');
 		Route::resource('companies.incomes', 'Settings\IncomesController');
 		Route::group(['middleware' => ['role:superadmin']], function (){
