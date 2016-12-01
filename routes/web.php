@@ -16,10 +16,16 @@ Route::group(['middleware' => 'web'], function (){
 	Route::get('/home', 'HomeController@index')->name('home');
 	Route::get('/', 'HomeController@index')->name('home');
 
-	Route::get('settings', 'Settings\SettingsController@settings')->name('settings');
+	Route::group(['middleware' => 'auth'], function (){
+		Route::get('settings', 'Settings\SettingsController@settings')->name('settings');
+		Route::resource('companies', 'Settings\CompaniesController');
+		Route::resource('shifts', 'ShiftsController');
+		Route::resource('companies.incomes', 'Settings\IncomesController');
+		Route::group(['middleware' => ['role:superadmin']], function (){
+			Route::resource('income-types', 'Settings\IncomeTypesController');
+		});
 
-	Route::resource('companies', 'Settings\CompaniesController');
-	Route::resource('shifts', 'ShiftsController');
+	});
 	Auth::routes();
 });
 

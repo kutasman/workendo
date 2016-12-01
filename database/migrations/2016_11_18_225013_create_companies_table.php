@@ -13,31 +13,42 @@ class CreateCompaniesTable extends Migration
      */
     public function up()
     {
-    	Schema::create('salary_types', function (Blueprint $table){
-    		$table->increments('id');
-		    $table->string('type', 255);
-		    $table->string('description', 255);
-	    });
-        Schema::create('companies', function (Blueprint $table) {
+        Schema::create('companies', function ( Blueprint $table ) {
             $table->increments('id');
 	        $table->string('name');
 	        $table->string('address')->nullable();
-	        $table->integer('salary', false, true);
-	        $table->integer('salary_type_id', false, true);
-	        $table->integer('');
-	        $table->integer('song_percent', false, true)->nullable();
             $table->timestamps();
         });
-	    Schema::create('company_user', function ( Blueprint $table){
+	    Schema::create('company_user', function ( Blueprint $table ){
 		    $table->integer('company_id', false, true);
 		    $table->integer('user_id', false, true);
 
 		    $table->foreign('company_id')->references('id')->on('companies');
 		    $table->foreign('user_id')->references('id')->on('users');
 	    });
+	    Schema::create('incomes', function ( Blueprint $table ){
+	    	$table->increments('id');
+	    	$table->string('description');
+		    $table->integer('income_type_id', false, true);
+		    $table->integer('company_id', false, true);
+		    $table->json('rules');
 
+		    $table->foreign('company_id')->references('id')->on('companies');
+	    });
+	    Schema::create('income_types', function ( Blueprint $table ){
+		    $table->increments('id');
+		    $table->string('income_type_name', 45);
+		    $table->string('income_type_slug', 45);
+		    $table->string('income_type_desc', 255);
 
+	    });
+	    Schema::create('incomes_income_types', function (Blueprint $table){
+			$table->integer('income_id', false, true);
+			$table->integer('income_type_id', false, true);
 
+			$table->foreign('income_id')->references('id')->on('incomes');
+			$table->foreign('income_type_id')->references('id')->on('income_types');
+	    });
     }
 
     /**
@@ -49,7 +60,9 @@ class CreateCompaniesTable extends Migration
     {
 	    Schema::disableForeignKeyConstraints();
 
-		Schema::dropIfExists('salary_types');
+	    Schema::dropIfExists('incomes_income_types');
+	    Schema::dropIfExists('incomes');
+		Schema::dropIfExists('income_types');
         Schema::dropIfExists('companies');
         Schema::dropIfExists('company_user');
 

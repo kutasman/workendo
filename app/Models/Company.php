@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Company extends Model
 {
     protected $fillable = [
-    	'name', 'address', 'salary', 'song_percent', 'salary_type_id'
+    	'name', 'address',
     ];
 
 	public function setSongPercentAttribute($value)
@@ -25,9 +25,9 @@ class Company extends Model
 		return $this->belongsToMany('App\Models\User');
 	}
 
-	public function salaryType()
-	{
-		return $this->belongsTo('App\Models\SalaryType');
+	public function incomes(){
+		return $this->hasMany('App\Models\Income');
 	}
+
 }
 

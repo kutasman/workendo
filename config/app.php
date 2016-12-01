@@ -170,6 +170,8 @@ return [
         Barryvdh\Debugbar\ServiceProvider::class,
 	    Laratrust\LaratrustServiceProvider::class,
 	    DaveJamesMiller\Breadcrumbs\ServiceProvider::class,
+	    Collective\Html\HtmlServiceProvider::class,
+	    Watson\BootstrapForm\BootstrapFormServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -231,6 +233,9 @@ return [
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'Laratrust'   => Laratrust\LaratrustFacade::class,
         'Breadcrumbs' => DaveJamesMiller\Breadcrumbs\Facade::class,
+        'Form' => Collective\Html\FormFacade::class,
+        'Html' => Collective\Html\HtmlFacade::class,
+        'BootForm' => Watson\BootstrapForm\Facades\BootstrapForm::class,
     ],
 
 ];

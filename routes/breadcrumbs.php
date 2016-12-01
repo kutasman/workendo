@@ -19,3 +19,13 @@ Breadcrumbs::register('companies.edit', function ($bc, $companyId){
 	$bc->parent('settings');
 	$bc->push('Edit company', route('companies.edit', $companyId));
 });
+
+Breadcrumbs::register('companies.create', function ($bc){
+	$bc->parent('settings');
+	$bc->push('Create company');
+});
+
+Breadcrumbs::register('incomes.create', function ($bc){
+	$bc->parent('settings');
+	$bc->push('Create income');
+});

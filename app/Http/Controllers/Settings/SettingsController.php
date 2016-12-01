@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Settings;
 
 use App\Http\Controllers\Controller;
-use App\Models\SalaryType;
+use App\Models\IncomeType;
 use Illuminate\Http\Request;
 use App\Models\Company;
 use Auth;
@@ -21,7 +21,7 @@ class SettingsController extends Controller
 	public function settings()
 	{
 		$companies = Auth::user()->companies()->paginate(10);
-		$salaryTypes = SalaryType::all()->keyBy('id')->all();
-		return view('settings.settings', compact('companies', 'salaryTypes'));
+		$income_types = IncomeType::all();
+		return view('settings.settings', compact('companies', 'income_types'));
 	}
 }

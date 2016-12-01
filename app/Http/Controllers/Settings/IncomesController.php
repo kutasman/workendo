@@ -4,25 +4,22 @@ namespace App\Http\Controllers\Settings;
 
 use App\Http\Controllers\Controller;
 use App\Models\Company;
-use App\Models\User;
+use App\Models\IncomeType;
 use Illuminate\Http\Request;
-use Laratrust;
-use Auth;
 
-class CompaniesController extends Controller
+class IncomesController extends Controller
 {
-	protected $companies;
 
-	protected $validateRules = [
-		'name' => 'required|max:255',
-		'address' => 'max:255',
+	protected $rules = [
+		'income_name' => 'required|max:45|string',
+		'description' => 'max:255|string',
+		'value' => 'required|numeric',
+		'type' => 'required|string|max:45',
+
 	];
 
-	public function __construct(Company $company) {
-		$this->companies = $company;
-	}
 
-	/**
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -37,9 +34,17 @@ class CompaniesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($company_id)
     {
-        return view('settings.companies.create');
+    	if (\Laratrust::can('income-create')){
+    		$income_types = IncomeType::all()->mapWithKeys(function ($type){
+    			return [$type['income_type_slug'] => $type['income_type_name']];
+		    });
+    		$company = \Auth::user()->companies()->find($company_id);
+		    return view('settings.incomes.create', compact('income_types', 'company'));
+	    } else {
+			return redirect()->back()->with('permission_denied', 'You can\'t create income');
+	    }
     }
 
     /**
@@ -48,17 +53,15 @@ class CompaniesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $company_id)
     {
-    	if( Laratrust::can('company-create')){
-
-		    $this->validate($request, $this->getValidateRules());
-
-		    Auth::user()->companies()->create($request->all());
-
-	    }
-        return redirect()->route('settings');
+    	$params = $request->all();
+	    $params['income_type_id'] = IncomeType::where('income_type_slug', $request->get('income_type_slug'))->first()->id;
+	    $params['rules'] = $request->get('rules')[$request->get('income_type_slug')];
+	    Company::find($company_id)->incomes()->create($params);
+	    return redirect()->route('settings');
     }
+
 
     /**
      * Display the specified resource.
@@ -79,13 +82,7 @@ class CompaniesController extends Controller
      */
     public function edit($id)
     {
-    	if (Laratrust::can('company-read')){
-		    $company = Company::find($id);
-		    return view('settings.companies.edit', compact('company'));
-	    } else {
-    		return redirect()->back();
-	    }
-
+        //
     }
 
     /**
@@ -97,15 +94,7 @@ class CompaniesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if(Laratrust::can('company-update')){
-	        $this->validate($request, $this->getValidateRules());
-
-	        $company = Company::find($id);
-	        $company->fill($request->all());
-	        $company->save();
-        }
-
-        return redirect()->route('settings');
+        //
     }
 
     /**
@@ -116,15 +105,11 @@ class CompaniesController extends Controller
      */
     public function destroy($id)
     {
-    	if (Laratrust::can('company-delete')){
-		    Auth::user()->companies()->detach($id);
-		    $this->companies->destroy($id);
-	    }
-	    return redirect()->route('settings');
+        //
     }
 
-    private function getValidateRules()
+    private function getRules()
     {
-    	return $this->validateRules;
+    	return $this->rules;
     }
 }
