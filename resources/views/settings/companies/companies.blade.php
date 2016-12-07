@@ -30,7 +30,7 @@
                 <ul>
                 @forelse($company->incomes as $income)
                     <li>
-                        {{ $income_types->keyBy('id')[$income->income_type_id]['income_type_name'] }} : {{ $income->rules }}
+                        {{ $income->income_type_slug }}: {{ $income->rules() }}
                         <i class="fa fa-times btn btn-xs text-danger" onclick="$('#destroy-income-{{$income->id}}').submit();return false;"></i>
                     </li>
                     <form action="{{ route('companies.incomes.destroy', ['id'=> $income->id, 'company_id' => $company->id]) }}" method="post" id="destroy-income-{{$income->id}}" role="form">

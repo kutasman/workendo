@@ -39,7 +39,6 @@
         @include('shifts.create')
     </div>
 
-
     <table class="table table-striped table-hover table-bordered">
         @if(!$shifts->isEmpty())
     	<thead>

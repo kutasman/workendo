@@ -6,7 +6,7 @@
     <div class="panel-body">
     <ul class="list-group">
         @forelse($income_types as $income_type)
-            <li class="list-group-item">{{ $income_type->income_type_name }} <i class="fa fa-times btn btn-default" onclick="$('#destroy-income-type-{{$income_type->id}}').submit(); return false;"></i> </li>
+            <li class="list-group-item">{{ $income_type->income_type_name }} <i class="fa fa-times btn btn-xs pull-right text-danger" onclick="event.preventDefault();$('#destroy-income-type-{{$income_type->id}}').submit(); return false;"></i> </li>
             <form id="destroy-income-type-{{$income_type->id}}" action="{{ route('income-types.destroy', ['id' =>$income_type->id]) }}" method="post">
                 {{csrf_field()}}
                 {{method_field('delete')}}

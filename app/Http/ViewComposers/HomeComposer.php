@@ -8,6 +8,7 @@
 
 namespace App\Http\ViewComposers;
 
+use App\Models\Company;
 use App\Models\Shift;
 use Carbon\Carbon;
 use Request;
@@ -20,8 +21,6 @@ class HomeComposer {
 
 	public function compose(View $view)
 	{
-
-
 		// Shifts form errors
 		$errors = Session::get('errors');
 		$shiftsErrors = [];
@@ -33,24 +32,32 @@ class HomeComposer {
 		$shifts = Auth::user()->shifts()->whereMonth('date','=', date('m'))->orderBy('date', 'asc')->get();
 
 		//Companies
-		$companies = Auth::user()->companies;
+		$companies = Auth::user()->companies()->get();
+		if (!$companies->isEmpty()){
+			$companies->load(['incomes']);
+		}
 
-		/*foreach ( $userCompanies->toArray() as $company )
-		{
-			$companies[$company['id']] = $company['name'];
-		}*/
+
 
 		//Report data
 
+		//Tip
 		$tip = $shifts->sum('tip');
 
-		$salary = 0;
-		foreach ($shifts->groupBy('company_id') as $company_id => $shiftsInCompany){
-			$salary += $shiftsInCompany->count() * $companies->where('id', $company_id)->first()->salary;
-		}
-		$total = $tip + $salary;
+		//Songs percent
+
+
+		$salaries = $shifts->groupBy('company_id')->map(function ($shiftsInCompany, $company_id){
+			$salary = Company::where('id', $company_id)->first()->incomes()->where('income_type_slug', 'salary')->first()['rules']['value'];
+			$rate = Company::where('id', $company_id)->first()->incomes()->where('income_type_slug', 'rate')->first()['rules']['value'];
+			return $salary + $rate * $shiftsInCompany->count();
+		});
+		$salary = $salaries->sum();
+
+		$total = $salary + $tip;
+
 		//Send date to view
-		$view->with(compact('shifts', 'companies', 'shiftsErrors', 'tip', 'salary', 'total'));
+		$view->with(compact('shifts', 'companies', 'shiftsErrors', 'tip', 'total', 'salary'));
 	}
 
 }

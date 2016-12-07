@@ -14,6 +14,7 @@ class ShiftsController extends Controller
 		'company_id' => 'required|numeric|min:0',
 		'date' => 'required|date|date_format:Y-m-d',
 		'tip' => 'numeric|min:0',
+		'songs' => 'numeric|min:0',
 	];
 
 	public function __construct() {
@@ -54,7 +55,6 @@ class ShiftsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, $this->getRules());
-
 	    Auth::user()->shifts()->create($request->all());
 	    return redirect()->route('home');
     }

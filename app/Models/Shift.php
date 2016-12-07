@@ -5,6 +5,29 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 
+/**
+ * App\Models\Shift
+ *
+ * @property-read \App\Models\User $users
+ * @property-read \App\Models\Company $company
+ * @property-write mixed $songs
+ * @property-write mixed $tip
+ * @mixin \Eloquent
+ * @property integer $id
+ * @property string $date
+ * @property integer $company_id
+ * @property integer $user_id
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Shift whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Shift whereDate($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Shift whereSongs($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Shift whereTip($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Shift whereCompanyId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Shift whereUserId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Shift whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Shift whereUpdatedAt($value)
+ */
 class Shift extends Model
 {
 
@@ -19,9 +42,9 @@ class Shift extends Model
 		return $this->belongsTo('App\Models\User');
 	}
 
-	public function companies()
+	public function company()
 	{
-		$this->belongsTo('App\Models\Company');
+		return $this->belongsTo('App\Models\Company');
 	}
 
 	//Mutators
@@ -35,9 +58,6 @@ class Shift extends Model
 	{
 		$this->attributes['tip'] = $value ? $value : 0;
 	}
-
-
-
 
 	public function getCarbonDate()
 	{

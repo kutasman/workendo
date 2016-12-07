@@ -4,18 +4,20 @@ namespace App\Http\Controllers\Settings;
 
 use App\Http\Controllers\Controller;
 use App\Models\Company;
+use App\Models\Income;
 use App\Models\IncomeType;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class IncomesController extends Controller
 {
 
 	protected $rules = [
-		'income_name' => 'required|max:45|string',
-		'description' => 'max:255|string',
-		'value' => 'required|numeric',
-		'type' => 'required|string|max:45',
-
+		'description' => 'string|max:255',
+		'income_type_slug' => 'string|max:45|required',
+		'company_id' => 'numeric|required|min:0',
+		'rules' => 'required',
+		'rules.song.*.value' => 'numeric|min:0',
 	];
 
 
@@ -37,11 +39,20 @@ class IncomesController extends Controller
     public function create($company_id)
     {
     	if (\Laratrust::can('income-create')){
+		    $days = [
+			    '1' => 1,
+			    '2' => 2,
+			    '3' => 3,
+			    '4' => 4,
+			    '5' => 5,
+			    '6' => 6,
+			    '7' => 7,
+		    ];
     		$income_types = IncomeType::all()->mapWithKeys(function ($type){
     			return [$type['income_type_slug'] => $type['income_type_name']];
 		    });
     		$company = \Auth::user()->companies()->find($company_id);
-		    return view('settings.incomes.create', compact('income_types', 'company'));
+		    return view('settings.incomes.create', compact('income_types', 'company', 'days'));
 	    } else {
 			return redirect()->back()->with('permission_denied', 'You can\'t create income');
 	    }
@@ -55,9 +66,12 @@ class IncomesController extends Controller
      */
     public function store(Request $request, $company_id)
     {
-    	$params = $request->all();
-	    $params['income_type_id'] = IncomeType::where('income_type_slug', $request->get('income_type_slug'))->first()->id;
+
+	    $this->validate($request, $this->getRules());
+
+	    $params = $request->all();
 	    $params['rules'] = $request->get('rules')[$request->get('income_type_slug')];
+
 	    Company::find($company_id)->incomes()->create($params);
 	    return redirect()->route('settings');
     }
@@ -106,7 +120,7 @@ class IncomesController extends Controller
     public function destroy($id, $company_id)
     {
 
-        Company::find($company_id)->incomes()->delete($id);
+    	Income::destroy($id);
 
 
         return redirect()->route('settings');

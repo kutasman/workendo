@@ -3,11 +3,14 @@
 @section('breadcrumbs', Breadcrumbs::render('incomes.create'))
 @section('content')
     <div class="panel panel-default">
+        @include('errors._errors')
         <div class="panel-heading">
             <h3 class="panel-title">Add new income for {{ $company->name }}</h3>
         </div>
     	<div class="panel-body">
             {!! BootForm::vertical(['method' => 'post', 'url'=> route('companies.incomes.store', ['company_id' => $company->id]), 'class'=>'income-create-form']) !!}
+            {!! BootForm::hidden('company_id', $company->id) !!}
+
             {!! BootForm::select('income_type_slug', 'Type', $income_types->all()) !!}
             {!! BootForm::text('description') !!}
 
@@ -16,7 +19,7 @@
                 <div class="song-type" id="song-group-1">
                     {!! BootForm::number('rules[song][1][value]', 'Song price') !!}
                     {!! BootForm::number('rules[song][1][percent]', 'Percent') !!}
-                    {!! BootForm::select('rules[song][1][days][]','For days', [1,2,3,4,5,6,7], null, ['multiple']) !!}
+                    {!! BootForm::select('rules[song][1][days][]','For days', $days, null, ['multiple']) !!}
                 </div>
             </div>
             {{-- Salary --}}

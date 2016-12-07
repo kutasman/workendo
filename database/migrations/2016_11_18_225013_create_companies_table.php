@@ -29,11 +29,11 @@ class CreateCompaniesTable extends Migration
 	    Schema::create('incomes', function ( Blueprint $table ){
 	    	$table->increments('id');
 	    	$table->string('description');
-		    $table->integer('income_type_id', false, true);
+		    $table->string('income_type_slug', 45);
 		    $table->integer('company_id', false, true);
 		    $table->json('rules');
 
-		    $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
+		    $table->foreign('company_id')->references('id')->on('companies');
 	    });
 	    Schema::create('income_types', function ( Blueprint $table ){
 		    $table->increments('id');
